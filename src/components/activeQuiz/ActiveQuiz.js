@@ -1,5 +1,6 @@
 import React from "react";
 import classes from "./ActiveQuiz.module.css";
+import AnswersList from "./answersList/AnswersList";
 
 export const ActiveQuiz = (props) => {
   return (
@@ -11,10 +12,7 @@ export const ActiveQuiz = (props) => {
         <small>4 from 12</small>
       </p>
       <ul>
-        <li>1</li>
-        <li>2</li>
-        <li>3</li>
-        <li>4</li>
+        <AnswersList answers={props.answers} />
       </ul>
     </div>
   );
