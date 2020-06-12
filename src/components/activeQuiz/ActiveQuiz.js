@@ -7,12 +7,15 @@ export const ActiveQuiz = (props) => {
     <div className={classes.ActiveQuiz}>
       <p className={classes.Question}>
         <span>
-          <strong>2.</strong>&nbsp; How is it going?
+          <strong>2.</strong>&nbsp; {props.question}
         </span>
         <small>4 from 12</small>
       </p>
       <ul>
-        <AnswersList answers={props.answers} />
+        <AnswersList
+          answers={props.answers}
+          onAnswerClick={props.onAnswerClick}
+        />
       </ul>
     </div>
   );
