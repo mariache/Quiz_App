@@ -33,7 +33,7 @@ export const FinishedQuiz = (props) => {
         Correct {successCount} out of {props.quiz.length}
       </p>
       <div>
-        <button>Try again</button>
+        <button onClick={props.onRetry}>Try again</button>
       </div>
     </div>
   );
