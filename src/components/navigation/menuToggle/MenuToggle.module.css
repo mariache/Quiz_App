@@ -1,12 +1,12 @@
 .MenuToggle {
     position: fixed;
-    font-size: 20px;
-    color: #fff;
-    z-index: 100;
-    cursor: pointer;
     top: 40px;
     left: 40px;
+    font-size: 20px;
+    cursor: pointer;
+    color: #fff;
     transition: opacity, left .22s ease-in;
+    z-index: 100;
 }
 
 .MenuToggle:hover {
