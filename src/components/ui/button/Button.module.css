@@ -8,6 +8,7 @@
     text-transform: uppercase;
     font-weight: bold;
     font-size: 12px;
+    cursor: pointer;
 }
 
 .Button:focus {
@@ -35,4 +36,5 @@
 .primary {
     background: #2884f6;
     color: #fff;
+
 }
