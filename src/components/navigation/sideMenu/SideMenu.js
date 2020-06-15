@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import classes from "./SideMenu.module.css";
+import BackDrop from "../../ui/button/backdrop/BackDrop";
 
 const links = [1, 2, 3];
 
@@ -22,9 +23,12 @@ export class SideMenu extends Component {
     }
 
     return (
-      <nav className={cls.join(" ")}>
-        <ul>{this.renderLinks()}</ul>
-      </nav>
+      <>
+        <nav className={cls.join(" ")}>
+          <ul>{this.renderLinks()}</ul>
+        </nav>
+        {this.props.isOpen && <BackDrop onClick={this.props.onClose} />}
+      </>
     );
   }
 }

@@ -11,10 +11,15 @@ export class Layout extends Component {
       menu: !this.state.menu,
     });
   };
+
+  menuCloseHandler = () => {
+    this.setState({ menu: false });
+  };
+
   render() {
     return (
       <div className={classes.Layout}>
-        <SideMenu isOpen={this.state.menu} />
+        <SideMenu isOpen={this.state.menu} onClose={this.menuCloseHandler} />
         <MenuToggle
           onToggle={this.toggleMenuHandler}
           isOpen={this.state.menu}
