@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import classes from "./Auth.module.css";
-import { Button } from "../../components/ui/button/Button";
+import { Button } from "../../components/ui/Button/Button";
 import is from "is_js";
-import Input from "../../components/ui/input/Input";
+import Input from "../../components/ui/Input/Input";
 import axios from "axios";
 
 const API_KEY = "AIzaSyDkeFSvU40GKWsS_GbEo9IV3oG376LGfas";

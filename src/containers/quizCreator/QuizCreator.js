@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 import axios from "../../axios/axios-quiz";
 import classes from "./QuizCreator.module.css";
-import { Button } from "../../components/ui/button/Button";
-import { Input } from "../../components/ui/input/Input";
+import { Button } from "../../components/ui/Button/Button";
+import { Input } from "../../components/ui/Input/Input";
 import { CustomFragment } from "../../hoc/customFragment/CustomFragment";
 import { createControl, validate, validateForm } from "../../form/formUtils";
-import { Select } from "../../components/ui/select/Select";
+import { Select } from "../../components/ui/Select/Select";
 
 function createOptionControl(number) {
   return createControl(

@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import axios from "../../axios/axios-quiz";
 import classes from "./QuizList.module.css";
 import { NavLink } from "react-router-dom";
-import Loader from "../../components/ui/loader/Loader";
+import Loader from "../../components/ui/Loader/Loader";
 
 export class QuizList extends Component {
   state = {

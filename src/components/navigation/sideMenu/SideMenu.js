@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import classes from "./SideMenu.module.css";
 import { NavLink } from "react-router-dom";
-import { BackDrop } from "../../ui/backdrop/BackDrop";
+import { Backdrop } from "../../ui/Backdrop/Backdrop";
 
 const links = [
   { to: "/", label: "All quizes", exact: true },
@@ -43,7 +43,7 @@ export class SideMenu extends Component {
         <nav className={cls.join(" ")}>
           <ul>{this.renderLinks()}</ul>
         </nav>
-        {this.props.isOpen && <BackDrop onClick={this.props.onClose} />}
+        {this.props.isOpen && <Backdrop onClick={this.props.onClose} />}
       </>
     );
   }

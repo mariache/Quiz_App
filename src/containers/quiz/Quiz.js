@@ -3,7 +3,7 @@ import axios from "../../axios/axios-quiz";
 import classes from "./Quiz.module.css";
 import { ActiveQuiz } from "../../components/activeQuiz/ActiveQuiz";
 import FinishedQuiz from "../../components/finishedQuiz/FinishedQuiz";
-import Loader from "../../components/ui/loader/Loader";
+import Loader from "../../components/ui/Loader/Loader";
 
 class Quiz extends Component {
   state = {
