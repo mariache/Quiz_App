@@ -5,7 +5,7 @@ function isInvalid({ valid, touched, shouldValidate }) {
   return !valid && shouldValidate && touched;
 }
 
-const Input = (props) => {
+export const Input = (props) => {
   const inputType = props.type || "text";
   const cls = [classes.Input];
   const htmlFor = `${inputType}-${Math.random()}`;
