@@ -3,14 +3,14 @@ import classes from "./QuizCreator.module.css";
 import { Button } from "../../components/ui/button/Button";
 import { Input } from "../../components/ui/input/Input";
 import { CustomFragment } from "../../hoc/customFragment/CustomFragment";
-import { createControl } from "../../form/formUtils";
+import { createControl, validate, validateForm } from "../../form/formUtils";
 import { Select } from "../../components/ui/select/Select";
 
 function createOptionControl(number) {
   return createControl(
     {
       label: `Answer ${number}`,
-      errorMessage: "Value cannot be empty",
+      errorMessage: "Answer cannot be empty",
       id: number,
     },
     { required: true }
@@ -43,6 +43,7 @@ const selectOptions = [
 export class QuizCreator extends Component {
   state = {
     quiz: [],
+    isFormValid: false,
     formControls: createFormControls(),
   };
 
@@ -50,11 +51,26 @@ export class QuizCreator extends Component {
     event.preventDefault();
   };
 
-  addQuestionHandler = () => {};
+  addQuestionHandler = (event) => {
+    event.preventDefault();
+  };
 
   createQuizHandler = () => {};
 
-  changeHandler = (value, controlName) => {};
+  changeHandler = (value, controlName) => {
+    const formControls = { ...this.state.formControls };
+    const control = { ...formControls[controlName] };
+
+    control.touched = true;
+    control.value = value;
+    control.valid = validate(control.value, control.validation);
+    formControls[controlName] = control;
+
+    this.setState({
+      formControls,
+      isFormValid: validateForm(formControls),
+    });
+  };
 
   selectChangeHandler = (event) => {
     this.setState({
@@ -99,11 +115,19 @@ export class QuizCreator extends Component {
               onChange={this.selectChangeHandler}
               options={selectOptions}
             />
-            <Button type="primary" onClick={this.addQuestionHandler}>
+            <Button
+              type="primary"
+              onClick={this.addQuestionHandler}
+              disabled={!this.state.isFormValid}
+            >
               Add a question
             </Button>
 
-            <Button type="success" onClick={this.createQuizHandler}>
+            <Button
+              type="success"
+              onClick={this.createQuizHandler}
+              disabled={this.state.quiz.length === 0}
+            >
               Create a test
             </Button>
           </form>
