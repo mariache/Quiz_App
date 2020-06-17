@@ -1,6 +1,7 @@
 import React from "react";
 import classes from "./FinishedQuiz.module.css";
 import Button from "../ui/button/Button";
+import { Link } from "react-router-dom";
 
 export const FinishedQuiz = (props) => {
   const successCount = Object.keys(props.results).reduce((total, key) => {
@@ -10,10 +11,15 @@ export const FinishedQuiz = (props) => {
     return total;
   }, 0);
 
+  const resultSuccess = (successCount / props.quiz.length) * 100;
+
   return (
     <div className={classes.FinishedQuiz}>
       <h1>Congrats!!!</h1>
-      <p>I have successfully finished the quiz</p>
+      <p>
+        You have {resultSuccess > 50 ? "successfully " : "unsuccessfully "}
+        finished the quiz
+      </p>
       <ul>
         {props.quiz.map((quizItem, index) => {
           const cls = [
@@ -37,7 +43,9 @@ export const FinishedQuiz = (props) => {
         <Button onClick={props.onRetry} type="primary">
           Try again
         </Button>
-        <Button type="success">Back to all tests</Button>
+        <Link to="/">
+          <Button type="success">Back to all tests</Button>
+        </Link>
       </div>
     </div>
   );
