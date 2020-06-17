@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import classes from "./Auth.module.css";
 import { Button } from "../../components/ui/button/Button";
-import { validateEmail } from "../../utils/utils";
+import is from "is_js";
 import Input from "../../components/ui/input/Input";
 
 export class Auth extends Component {
@@ -54,7 +54,7 @@ export class Auth extends Component {
     }
 
     if (validation.email) {
-      isValid = validateEmail(value) && isValid;
+      isValid = is.email(value) && isValid;
     }
 
     if (validation.minLength) {
