@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import axios from "axios";
+import axios from "../../axios/axios-quiz";
 import classes from "./QuizCreator.module.css";
 import { Button } from "../../components/ui/button/Button";
 import { Input } from "../../components/ui/input/Input";
@@ -69,7 +69,7 @@ export class QuizCreator extends Component {
     const questionItem = {
       question: question.value,
       id: index,
-      rightAnswerId: this.state.rigthAnswerId,
+      rigthAnswerId: this.state.rigthAnswerId,
       answers: [
         {
           text: option1.value,
@@ -104,10 +104,7 @@ export class QuizCreator extends Component {
     event.preventDefault();
 
     try {
-      await axios.post(
-        "https://quiz-a55c5.firebaseio.com/quizes.json",
-        this.state.quiz
-      );
+      await axios.post("/quizes.json", this.state.quiz);
       this.setState({
         quiz: [],
         rigthAnswerId: 1,
@@ -136,7 +133,7 @@ export class QuizCreator extends Component {
 
   selectChangeHandler = (event) => {
     this.setState({
-      rightAnswerId: Number(event.target.value),
+      rigthAnswerId: Number(event.target.value),
     });
   };
 
@@ -173,7 +170,7 @@ export class QuizCreator extends Component {
             {this.renderControls()}
             <Select
               label="Select correct answer"
-              value={this.state.rightAnswerId}
+              value={this.state.rigthAnswerId}
               onChange={this.selectChangeHandler}
               options={selectOptions}
             />
