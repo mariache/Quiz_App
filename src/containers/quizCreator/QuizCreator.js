@@ -164,7 +164,7 @@ export class QuizCreator extends Component {
     return (
       <div className={classes.QuizCreator}>
         <div>
-          <h1>Test's creating</h1>
+          <h1>Quiz's creating</h1>
 
           <form onSubmit={this.submitHandler}>
             {this.renderControls()}
@@ -179,7 +179,7 @@ export class QuizCreator extends Component {
               onClick={this.addQuestionHandler}
               disabled={!this.state.isFormValid}
             >
-              Add a question
+              Add question
             </Button>
 
             <Button
@@ -187,7 +187,7 @@ export class QuizCreator extends Component {
               onClick={this.createQuizHandler}
               disabled={this.state.quiz.length === 0}
             >
-              Create a test
+              Create quiz
             </Button>
           </form>
         </div>

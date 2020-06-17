@@ -3,6 +3,9 @@ import classes from "./Auth.module.css";
 import { Button } from "../../components/ui/button/Button";
 import is from "is_js";
 import Input from "../../components/ui/input/Input";
+import axios from "axios";
+
+const API_KEY = "AIzaSyDkeFSvU40GKWsS_GbEo9IV3oG376LGfas";
 
 export class Auth extends Component {
   state = {
@@ -35,9 +38,41 @@ export class Auth extends Component {
     },
   };
 
-  loginHandler = () => {};
+  loginHandler = async () => {
+    const authData = {
+      email: this.state.formControls.email.value,
+      password: this.state.formControls.password.value,
+      returnSecureToken: true,
+    };
+    try {
+      const response = await axios.post(
+        `https://www.googleapis.com/identitytoolkit/v3/relyingparty/verifyPassword?key=${API_KEY}`,
+        authData
+      );
 
-  registerHandler = () => {};
+      console.log(response.data);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  registerHandler = async () => {
+    const authData = {
+      email: this.state.formControls.email.value,
+      password: this.state.formControls.password.value,
+      returnSecureToken: true,
+    };
+    try {
+      const response = await axios.post(
+        `https://www.googleapis.com/identitytoolkit/v3/relyingparty/signupNewUser?key=${API_KEY}`,
+        authData
+      );
+
+      console.log(response.data);
+    } catch (e) {
+      console.log(e);
+    }
+  };
 
   submitHandler = (event) => {
     event.preventDefault();

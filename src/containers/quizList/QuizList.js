@@ -41,7 +41,7 @@ export class QuizList extends Component {
     return (
       <div className={classes.QuizList}>
         <div>
-          <h1>All tests</h1>
+          <h1>All quizes</h1>
           {this.state.loading ? <Loader /> : <ul>{this.renderQuizes()}</ul>}
         </div>
       </div>
