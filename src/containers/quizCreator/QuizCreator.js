@@ -4,11 +4,12 @@ import { Button } from "../../components/ui/button/Button";
 import { Input } from "../../components/ui/input/Input";
 import { CustomFragment } from "../../hoc/customFragment/CustomFragment";
 import { createControl } from "../../form/formUtils";
+import { Select } from "../../components/ui/select/Select";
 
 function createOptionControl(number) {
   return createControl(
     {
-      label: `Case ${number}`,
+      label: `Answer ${number}`,
       errorMessage: "Value cannot be empty",
       id: number,
     },
@@ -20,7 +21,7 @@ function createFormControls() {
   return {
     question: createControl(
       {
-        label: "Enter the question",
+        label: "Type your question",
         errorMessage: "Question cannot be empty",
       },
       { required: true }
@@ -31,6 +32,14 @@ function createFormControls() {
     option4: createOptionControl(4),
   };
 }
+
+const selectOptions = [
+  { text: 1, value: 1 },
+  { text: 2, value: 2 },
+  { text: 3, value: 3 },
+  { text: 4, value: 4 },
+];
+
 export class QuizCreator extends Component {
   state = {
     quiz: [],
@@ -46,6 +55,12 @@ export class QuizCreator extends Component {
   createQuizHandler = () => {};
 
   changeHandler = (value, controlName) => {};
+
+  selectChangeHandler = (event) => {
+    this.setState({
+      rightAnswerId: Number(event.target.value),
+    });
+  };
 
   renderControls() {
     return Object.keys(this.state.formControls).map((controlName, index) => {
@@ -78,9 +93,12 @@ export class QuizCreator extends Component {
 
           <form onSubmit={this.submitHandler}>
             {this.renderControls()}
-
-            <select></select>
-
+            <Select
+              label="Select correct answer"
+              value={this.state.rightAnswerId}
+              onChange={this.selectChangeHandler}
+              options={selectOptions}
+            />
             <Button type="primary" onClick={this.addQuestionHandler}>
               Add a question
             </Button>
