@@ -4,45 +4,13 @@ import { ActiveQuiz } from "../../components/activeQuiz/ActiveQuiz";
 import FinishedQuiz from "../../components/finishedQuiz/FinishedQuiz";
 import Loader from "../../components/ui/Loader/Loader";
 import { connect } from "react-redux";
-import { fetchQuizById } from "../../store/actions/quizActions";
+import {
+  fetchQuizById,
+  quizAnswerClick,
+  retryQuiz,
+} from "../../store/actions/quizActions";
 
 class Quiz extends Component {
-  onAnswerClickHandler = (answerId) => {
-    const question = this.state.quiz[this.state.activeQuestion];
-    const results = this.state.results;
-
-    if (question.rigthAnswerId === answerId) {
-      if (!results[question.id]) {
-        results[question.id] = "success";
-      }
-      this.setState({
-        answerState: { [answerId]: "success" },
-        results,
-      });
-
-      const INTERVAL = 1000;
-
-      const timeout = window.setTimeout(() => {
-        if (this.isQuizFinished()) {
-          this.setState({ isFinished: true });
-        } else {
-          this.setState({
-            activeQuestion: this.state.activeQuestion + 1,
-            answerState: null,
-          });
-        }
-
-        window.clearTimeout(timeout);
-      }, INTERVAL);
-    } else {
-      results[question.id] = "error";
-      this.setState({
-        answerState: { [answerId]: "error" },
-        results,
-      });
-    }
-  };
-
   retryHandler = () => {
     this.setState({
       activeQuestion: 0,
@@ -106,6 +74,8 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     fetchQuizById: (id) => dispatch(fetchQuizById(id)),
+    quizAnswerClick: (answerId) => dispatch(quizAnswerClick(answerId)),
+    retryQuiz: () => dispatch(retryQuiz()),
   };
 }
 
