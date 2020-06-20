@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import axios from "../../axios/axios-quiz";
 import classes from "./QuizCreator.module.css";
 import { connect } from "react-redux";
 import { Button } from "../../components/ui/Button/Button";
@@ -48,7 +47,6 @@ const selectOptions = [
 
 export class QuizCreator extends Component {
   state = {
-    quiz: [],
     rigthAnswerId: 1,
     isFormValid: false,
     formControls: createFormControls(),
@@ -101,20 +99,16 @@ export class QuizCreator extends Component {
     });
   };
 
-  createQuizHandler = async (event) => {
+  createQuizHandler = (event) => {
     event.preventDefault();
 
-    try {
-      await axios.post("/quizes.json", this.state.quiz);
-      this.setState({
-        quiz: [],
-        rigthAnswerId: 1,
-        isFormValid: false,
-        formControls: createFormControls(),
-      });
-    } catch (error) {
-      console.log(error);
-    }
+    this.setState({
+      rigthAnswerId: 1,
+      isFormValid: false,
+      formControls: createFormControls(),
+    });
+
+    this.props.finishCreateQuiz();
   };
 
   changeHandler = (value, controlName) => {
@@ -199,7 +193,7 @@ export class QuizCreator extends Component {
 
 function mapStateToProps(state) {
   return {
-    quiz: state.quiz,
+    quiz: state.createQuiz.quiz,
   };
 }
 
