@@ -104,7 +104,7 @@ export function quizAnswerClick(answerId) {
     const question = state.quiz[state.activeQuestion];
     const results = state.results;
 
-    if (question.rightAnswerId === answerId) {
+    if (question.rigthAnswerId === answerId) {
       if (!results[question.id]) {
         results[question.id] = "success";
       }

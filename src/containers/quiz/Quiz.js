@@ -11,7 +11,7 @@ import {
 } from "../../store/actions/quizActions";
 
 class Quiz extends Component {
-  async componentDidMount() {
+  componentDidMount() {
     this.props.fetchQuizById(this.props.match.params.id);
   }
 
@@ -29,7 +29,7 @@ class Quiz extends Component {
             <FinishedQuiz
               results={this.props.results}
               quiz={this.props.quiz}
-              onRetry={this.retryHandler}
+              onRetry={this.props.retryQuiz}
             />
           ) : (
             <>
