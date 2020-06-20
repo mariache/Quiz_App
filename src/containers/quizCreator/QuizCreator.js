@@ -1,11 +1,16 @@
 import React, { Component } from "react";
 import axios from "../../axios/axios-quiz";
 import classes from "./QuizCreator.module.css";
+import { connect } from "react-redux";
 import { Button } from "../../components/ui/Button/Button";
 import { Input } from "../../components/ui/Input/Input";
 import { CustomFragment } from "../../hoc/customFragment/CustomFragment";
 import { createControl, validate, validateForm } from "../../form/formUtils";
 import { Select } from "../../components/ui/Select/Select";
+import {
+  finishCreateQuiz,
+  createQuizQuestion,
+} from "../../store/actions/createQuizActions";
 
 function createOptionControl(number) {
   return createControl(
@@ -56,9 +61,6 @@ export class QuizCreator extends Component {
   addQuestionHandler = (event) => {
     event.preventDefault();
 
-    const quiz = this.state.quiz.concat();
-    const index = quiz.length + 1;
-
     const {
       question,
       option1,
@@ -68,7 +70,7 @@ export class QuizCreator extends Component {
     } = this.state.formControls;
     const questionItem = {
       question: question.value,
-      id: index,
+      id: this.props.quiz.length + 1,
       rigthAnswerId: this.state.rigthAnswerId,
       answers: [
         {
@@ -90,10 +92,9 @@ export class QuizCreator extends Component {
       ],
     };
 
-    quiz.push(questionItem);
+    this.props.createQuizQuestion(questionItem);
 
     this.setState({
-      quiz,
       rigthAnswerId: 1,
       isFormValid: false,
       formControls: createFormControls(),
@@ -185,7 +186,7 @@ export class QuizCreator extends Component {
             <Button
               type="success"
               onClick={this.createQuizHandler}
-              disabled={this.state.quiz.length === 0}
+              disabled={this.props.quiz.length === 0}
             >
               Create quiz
             </Button>
@@ -196,4 +197,17 @@ export class QuizCreator extends Component {
   }
 }
 
-export default QuizCreator;
+function mapStateToProps(state) {
+  return {
+    quiz: state.quiz,
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    createQuizQuestion: (item) => dispatch(createQuizQuestion(item)),
+    finishCreateQuiz: () => dispatch(finishCreateQuiz()),
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(QuizCreator);
