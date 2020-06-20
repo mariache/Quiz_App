@@ -22,11 +22,10 @@ class Quiz extends Component {
   render() {
     return (
       <div className={classes.Quiz}>
-        props
         <div className={classes.QuizWrapper}>
-          {this.props.loading ? (
+          {this.props.loading || !this.props.quiz ? (
             <Loader />
-          ) : this.props.isFinished && this.props.quiz ? (
+          ) : this.props.isFinished ? (
             <FinishedQuiz
               results={this.props.results}
               quiz={this.props.quiz}
