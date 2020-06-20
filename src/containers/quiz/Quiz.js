@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import classes from "./Quiz.module.css";
 import { ActiveQuiz } from "../../components/activeQuiz/ActiveQuiz";
-import FinishedQuiz from "../../components/finishedQuiz/FinishedQuiz";
+import { FinishedQuiz } from "../../components/finishedQuiz/FinishedQuiz";
 import Loader from "../../components/ui/Loader/Loader";
 import { connect } from "react-redux";
 import {
@@ -11,19 +11,6 @@ import {
 } from "../../store/actions/quizActions";
 
 class Quiz extends Component {
-  retryHandler = () => {
-    this.setState({
-      activeQuestion: 0,
-      isFinished: false,
-      results: [],
-      answerState: null,
-    });
-  };
-
-  isQuizFinished() {
-    return this.state.activeQuestion + 1 === this.state.quiz.length;
-  }
-
   async componentDidMount() {
     this.props.fetchQuizById(this.props.match.params.id);
   }
@@ -47,7 +34,7 @@ class Quiz extends Component {
               <ActiveQuiz
                 answers={this.props.quiz[this.props.activeQuestion].answers}
                 question={this.props.quiz[this.props.activeQuestion].question}
-                onAnswerClick={this.onAnswerClickHandler}
+                onAnswerClick={this.props.quizAnswerClick}
                 quizLength={this.props.quiz.length}
                 answerNumber={this.props.activeQuestion + 1}
                 state={this.props.answerState}
