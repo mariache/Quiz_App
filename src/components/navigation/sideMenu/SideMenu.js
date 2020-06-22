@@ -3,18 +3,12 @@ import classes from "./SideMenu.module.css";
 import { NavLink } from "react-router-dom";
 import { Backdrop } from "../../ui/Backdrop/Backdrop";
 
-const links = [
-  { to: "/", label: "All quizes", exact: true },
-  { to: "/auth", label: "Auth", exact: false },
-  { to: "/quiz-creator", label: "Create new", exact: false },
-];
-
 export class SideMenu extends Component {
   clickHandler = () => {
     this.props.onClose();
   };
 
-  renderLinks() {
+  renderLinks(links) {
     return links.map((link, index) => {
       return (
         <li key={index}>
@@ -38,10 +32,19 @@ export class SideMenu extends Component {
       cls.push(classes.close);
     }
 
+    const links = [{ to: "/", label: "List", exact: true }];
+
+    if (this.props.isAuthenticated) {
+      links.push({ to: "/quiz-creator", label: "Create a quiz", exact: false });
+      links.push({ to: "/logout", label: "Log out", exact: false });
+    } else {
+      links.push({ to: "/auth", label: "Autorization", exact: false });
+    }
+
     return (
       <>
         <nav className={cls.join(" ")}>
-          <ul>{this.renderLinks()}</ul>
+          <ul>{this.renderLinks(links)}</ul>
         </nav>
         {this.props.isOpen && <Backdrop onClick={this.props.onClose} />}
       </>
