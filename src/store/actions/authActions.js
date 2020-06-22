@@ -7,7 +7,7 @@ export function auth(password, email, isLogin) {
     const authData = {
       email,
       password,
-      returnSecureToken: isLogin,
+      returnSecureToken: true,
     };
     let url = `https://www.googleapis.com/identitytoolkit/v3/relyingparty/signupNewUser?key=${key}`;
 
