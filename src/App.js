@@ -1,24 +1,55 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 import { Layout } from "./hoc/layout/Layout";
-import { Route, Switch } from "react-router-dom";
-import Quiz from "./containers/quiz/Quiz";
-import QuizList from "./containers/quizList/QuizList";
-import Auth from "./containers/auth/Auth";
-import QuizCreator from "./containers/quizCreator/QuizCreator";
+import { Route, Switch, Redirect, withRouter } from "react-router-dom";
+import { Quiz } from "./containers/quiz/Quiz";
+import { QuizList } from "./containers/quizList/QuizList";
+import { Auth } from "./containers/auth/Auth";
+import { QuizCreator } from "./containers/quizCreator/QuizCreator";
+import { Logout } from "./components/Logout";
+import { autoLogin } from "./store/actions/authActions";
 
 class App extends Component {
+  componentDidMount() {
+    this.props.autoLogin();
+  }
+
   render() {
-    return (
-      <Layout>
+    let routes = (
+      <Switch>
+        <Route path="/auth" component={Auth} />
+        <Route path="/quiz/:id" component={Quiz} />
+        <Route path="/" exact component={QuizList} />
+        <Redirect to="/" />
+      </Switch>
+    );
+
+    if (this.props.isAuthenticated) {
+      routes = (
         <Switch>
-          <Route path="/auth" component={Auth} />
           <Route path="/quiz-creator" component={QuizCreator} />
           <Route path="/quiz/:id" component={Quiz} />
-          <Route path="/" component={QuizList} />
+          <Route path="/logout" component={Logout} />
+          <Route path="/" exact component={QuizList} />
+          <Redirect to="/" />
         </Switch>
-      </Layout>
-    );
+      );
+    }
+
+    return <Layout>{routes}</Layout>;
   }
 }
 
-export default App;
+function mapStateToProps(state) {
+  return {
+    isAuthenticated: !!state.auth.token,
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    autoLogin: () => dispatch(autoLogin()),
+  };
+}
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));
