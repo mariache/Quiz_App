@@ -10,7 +10,7 @@ import {
   retryQuiz,
 } from "../../store/actions/quizActions";
 
-class Quiz extends Component {
+export class Quiz extends Component {
   componentDidMount() {
     this.props.fetchQuizById(this.props.match.params.id);
   }

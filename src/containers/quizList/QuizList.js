@@ -36,14 +36,17 @@ export class QuizList extends Component {
   }
 }
 
-const mapStateToProps = (state) => {
-  return { quizes: state.quiz.quizes, loading: state.quiz.loading };
-};
+function mapStateToProps(state) {
+  return {
+    quizes: state.quiz.quizes,
+    loading: state.quiz.loading,
+  };
+}
 
-const mapDispatchToProps = (dispatch) => {
+function mapDispatchToProps(dispatch) {
   return {
     fetchQuizes: () => dispatch(fetchQuizes()),
   };
-};
+}
 
 export default connect(mapStateToProps, mapDispatchToProps)(QuizList);
