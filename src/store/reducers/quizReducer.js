@@ -20,28 +20,30 @@ const initialState = {
   quiz: null,
 };
 
-export default (state = initialState, action) => {
+export default function quizReducer(state = initialState, action) {
   switch (action.type) {
     case FETCH_QUIZES_START:
-      return { ...state, loading: true };
+      return {
+        ...state,
+        loading: true,
+      };
     case FETCH_QUIZES_SUCCESS:
       return {
         ...state,
         loading: false,
-        quizes: action.payload,
+        quizes: action.quizes,
       };
     case FETCH_QUIZES_ERROR:
       return {
         ...state,
-        error: action.payload,
         loading: false,
+        error: action.error,
       };
     case FETCH_QUIZ_SUCCESS:
       return {
         ...state,
-        error: action.payload,
         loading: false,
-        quiz: action.payload,
+        quiz: action.quiz,
       };
     case QUIZ_SET_STATE:
       return {
@@ -71,4 +73,4 @@ export default (state = initialState, action) => {
     default:
       return state;
   }
-};
+}

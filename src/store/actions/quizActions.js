@@ -44,22 +44,30 @@ export function fetchQuizById(quizId) {
   };
 }
 
-export function fetchQuizesStart() {
-  return { type: FETCH_QUIZES_START };
-}
-
-export function fetchQuizesSuccess(quizes) {
-  return { type: FETCH_QUIZES_SUCCESS, payload: quizes };
-}
-
-export function fetchQuizesError(e) {
-  return { type: FETCH_QUIZES_ERROR, payload: e };
-}
-
 export function fetchQuizSuccess(quiz) {
   return {
     type: FETCH_QUIZ_SUCCESS,
-    payload: quiz,
+    quiz,
+  };
+}
+
+export function fetchQuizesStart() {
+  return {
+    type: FETCH_QUIZES_START,
+  };
+}
+
+export function fetchQuizesSuccess(quizes) {
+  return {
+    type: FETCH_QUIZES_SUCCESS,
+    quizes,
+  };
+}
+
+export function fetchQuizesError(e) {
+  return {
+    type: FETCH_QUIZES_ERROR,
+    error: e,
   };
 }
 
@@ -104,7 +112,7 @@ export function quizAnswerClick(answerId) {
     const question = state.quiz[state.activeQuestion];
     const results = state.results;
 
-    if (question.rigthAnswerId === answerId) {
+    if (question.rightAnswerId === answerId) {
       if (!results[question.id]) {
         results[question.id] = "success";
       }
