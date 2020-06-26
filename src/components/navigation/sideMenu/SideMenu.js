@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import classes from "./SideMenu.module.css";
 import { NavLink } from "react-router-dom";
-import { Backdrop } from "../../ui/Backdrop/Backdrop";
+import Backdrop from "../../UI/Backdrop/Backdrop";
 
-export class SideMenu extends Component {
+class SideMenu extends Component {
   clickHandler = () => {
     this.props.onClose();
   };
@@ -32,7 +32,9 @@ export class SideMenu extends Component {
       cls.push(classes.close);
     }
 
-    const links = [{ to: "/", label: "List", exact: true }];
+    const links = [{ to: "/", label: "All quizes", exact: true }];
+
+    console.log("Auth", this.props.isAuthenticated);
 
     if (this.props.isAuthenticated) {
       links.push({ to: "/quiz-creator", label: "Create a quiz", exact: false });
@@ -46,9 +48,10 @@ export class SideMenu extends Component {
         <nav className={cls.join(" ")}>
           <ul>{this.renderLinks(links)}</ul>
         </nav>
-        {this.props.isOpen && <Backdrop onClick={this.props.onClose} />}
+        {this.props.isOpen ? <Backdrop onClick={this.props.onClose} /> : null}
       </>
     );
   }
 }
+
 export default SideMenu;

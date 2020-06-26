@@ -1,15 +1,15 @@
 import React, { Component } from "react";
 import classes from "./QuizCreator.module.css";
-import { connect } from "react-redux";
-import { Button } from "../../components/ui/Button/Button";
-import { Input } from "../../components/ui/Input/Input";
-import { CustomFragment } from "../../hoc/customFragment/CustomFragment";
+import Button from "../../components/UI/Button/Button";
+import Input from "../../components/UI/Input/Input";
+import Select from "../../components/UI/Select/Select";
 import { createControl, validate, validateForm } from "../../form/formUtils";
-import { Select } from "../../components/ui/Select/Select";
+import CustomFragment from "../../hoc/CustomFragment/CustomFragment";
+import { connect } from "react-redux";
 import {
-  finishCreateQuiz,
   createQuizQuestion,
-} from "../../store/actions/createQuizActions";
+  finishCreateQuiz,
+} from "../../store/actions/create";
 
 function createOptionControl(number) {
   return createControl(
@@ -38,17 +38,10 @@ function createFormControls() {
   };
 }
 
-const selectOptions = [
-  { text: 1, value: 1 },
-  { text: 2, value: 2 },
-  { text: 3, value: 3 },
-  { text: 4, value: 4 },
-];
-
-export class QuizCreator extends Component {
+class QuizCreator extends Component {
   state = {
-    rightAnswerId: 1,
     isFormValid: false,
+    rightAnswerId: 1,
     formControls: createFormControls(),
   };
 
@@ -66,35 +59,24 @@ export class QuizCreator extends Component {
       option3,
       option4,
     } = this.state.formControls;
+
     const questionItem = {
       question: question.value,
       id: this.props.quiz.length + 1,
       rightAnswerId: this.state.rightAnswerId,
       answers: [
-        {
-          text: option1.value,
-          id: option1.id,
-        },
-        {
-          text: option2.value,
-          id: option2.id,
-        },
-        {
-          text: option3.value,
-          id: option3.id,
-        },
-        {
-          text: option4.value,
-          id: option4.id,
-        },
+        { text: option1.value, id: option1.id },
+        { text: option2.value, id: option2.id },
+        { text: option3.value, id: option3.id },
+        { text: option4.value, id: option4.id },
       ],
     };
 
     this.props.createQuizQuestion(questionItem);
 
     this.setState({
-      rightAnswerId: 1,
       isFormValid: false,
+      rightAnswerId: 1,
       formControls: createFormControls(),
     });
   };
@@ -103,11 +85,10 @@ export class QuizCreator extends Component {
     event.preventDefault();
 
     this.setState({
-      rightAnswerId: 1,
       isFormValid: false,
+      rightAnswerId: 1,
       formControls: createFormControls(),
     });
-
     this.props.finishCreateQuiz();
   };
 
@@ -118,17 +99,12 @@ export class QuizCreator extends Component {
     control.touched = true;
     control.value = value;
     control.valid = validate(control.value, control.validation);
+
     formControls[controlName] = control;
 
     this.setState({
       formControls,
       isFormValid: validateForm(formControls),
-    });
-  };
-
-  selectChangeHandler = (event) => {
-    this.setState({
-      rightAnswerId: Number(event.target.value),
     });
   };
 
@@ -155,20 +131,36 @@ export class QuizCreator extends Component {
     });
   }
 
+  selectChangeHandler = (event) => {
+    this.setState({
+      rightAnswerId: +event.target.value,
+    });
+  };
+
   render() {
+    const select = (
+      <Select
+        label="Select correct answer"
+        value={this.state.rightAnswerId}
+        onChange={this.selectChangeHandler}
+        options={[
+          { text: 1, value: 1 },
+          { text: 2, value: 2 },
+          { text: 3, value: 3 },
+          { text: 4, value: 4 },
+        ]}
+      />
+    );
+
     return (
       <div className={classes.QuizCreator}>
         <div>
           <h1>Quiz's creating</h1>
-
           <form onSubmit={this.submitHandler}>
             {this.renderControls()}
-            <Select
-              label="Select correct answer"
-              value={this.state.rightAnswerId}
-              onChange={this.selectChangeHandler}
-              options={selectOptions}
-            />
+
+            {select}
+
             <Button
               type="primary"
               onClick={this.addQuestionHandler}
@@ -193,7 +185,7 @@ export class QuizCreator extends Component {
 
 function mapStateToProps(state) {
   return {
-    quiz: state.createQuiz.quiz,
+    quiz: state.create.quiz,
   };
 }
 

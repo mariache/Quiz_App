@@ -1,9 +1,9 @@
 import React from "react";
 import classes from "./FinishedQuiz.module.css";
-import Button from "../ui/Button/Button";
+import Button from "../UI/Button/Button";
 import { Link } from "react-router-dom";
 
-export const FinishedQuiz = (props) => {
+const FinishedQuiz = (props) => {
   const successCount = Object.keys(props.results).reduce((total, key) => {
     if (props.results[key] === "success") {
       total++;

@@ -5,7 +5,7 @@ function isInvalid({ valid, touched, shouldValidate }) {
   return !valid && shouldValidate && touched;
 }
 
-export const Input = (props) => {
+const Input = (props) => {
   const inputType = props.type || "text";
   const cls = [classes.Input];
   const htmlFor = `${inputType}-${Math.random()}`;
@@ -16,16 +16,14 @@ export const Input = (props) => {
 
   return (
     <div className={cls.join(" ")}>
-      <label htmlFor={htmlFor}>
-        {props.label}
-        <input
-          type={inputType}
-          name=""
-          id={htmlFor}
-          value={props.value}
-          onChange={props.onChange}
-        />
-      </label>
+      <label htmlFor={htmlFor}>{props.label}</label>
+      <input
+        type={inputType}
+        id={htmlFor}
+        value={props.value}
+        onChange={props.onChange}
+      />
+
       {isInvalid(props) ? (
         <span>{props.errorMessage || "Please enter the value"}</span>
       ) : null}

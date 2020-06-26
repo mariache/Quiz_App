@@ -1,13 +1,13 @@
 import React, { Component } from "react";
-import { connect } from "react-redux";
-import { Layout } from "./hoc/layout/Layout";
+import Layout from "./hoc/Layout/Layout";
 import { Route, Switch, Redirect, withRouter } from "react-router-dom";
-import { Quiz } from "./containers/quiz/Quiz";
-import { QuizList } from "./containers/quizList/QuizList";
-import { Auth } from "./containers/auth/Auth";
-import { QuizCreator } from "./containers/quizCreator/QuizCreator";
-import { Logout } from "./components/Logout";
-import { autoLogin } from "./store/actions/authActions";
+import Quiz from "./containers/Quiz/Quiz";
+import QuizList from "./containers/QuizList/QuizList";
+import Auth from "./containers/Auth/Auth";
+import QuizCreator from "./containers/QuizCreator/QuizCreator";
+import { connect } from "react-redux";
+import Logout from "./components/Logout/Logout";
+import { autoLogin } from "./store/actions/auth";
 
 class App extends Component {
   componentDidMount() {

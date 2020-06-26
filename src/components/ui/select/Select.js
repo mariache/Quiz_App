@@ -1,7 +1,7 @@
 import React from "react";
 import classes from "./Select.module.css";
 
-export const Select = (props) => {
+const Select = (props) => {
   const htmlFor = `${props.label}-${Math.random()}`;
 
   return (

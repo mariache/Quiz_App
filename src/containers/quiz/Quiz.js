@@ -1,16 +1,16 @@
 import React, { Component } from "react";
 import classes from "./Quiz.module.css";
-import { ActiveQuiz } from "../../components/activeQuiz/ActiveQuiz";
-import { FinishedQuiz } from "../../components/finishedQuiz/FinishedQuiz";
-import Loader from "../../components/ui/Loader/Loader";
+import ActiveQuiz from "../../components/ActiveQuiz/ActiveQuiz";
+import FinishedQuiz from "../../components/FinishedQuiz/FinishedQuiz";
+import Loader from "../../components/UI/Loader/Loader";
 import { connect } from "react-redux";
 import {
   fetchQuizById,
   quizAnswerClick,
   retryQuiz,
-} from "../../store/actions/quizActions";
+} from "../../store/actions/quiz";
 
-export class Quiz extends Component {
+class Quiz extends Component {
   componentDidMount() {
     this.props.fetchQuizById(this.props.match.params.id);
   }
