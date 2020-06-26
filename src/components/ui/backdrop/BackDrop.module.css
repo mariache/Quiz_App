@@ -1,5 +1,5 @@
 .Backdrop {
-    z-index: 50;
+    z-inDex: 50;
     background: rgba(0, 0, 0, 70%);
     position: fixed;
     left: 0;

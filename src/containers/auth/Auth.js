@@ -1,12 +1,12 @@
 import React, { Component } from "react";
 import classes from "./Auth.module.css";
-import { Button } from "../../components/ui/Button/Button";
-import { connect } from "react-redux";
+import Button from "../../components/UI/Button/Button";
+import Input from "../../components/UI/Input/Input";
 import is from "is_js";
-import { Input } from "../../components/ui/Input/Input";
-import { auth } from "../../store/actions/authActions";
+import { connect } from "react-redux";
+import { auth } from "../../store/actions/auth";
 
-export class Auth extends Component {
+class Auth extends Component {
   state = {
     isFormValid: false,
     formControls: {
@@ -125,7 +125,6 @@ export class Auth extends Component {
       <div className={classes.Auth}>
         <div>
           <h1>Autorisation</h1>
-
           <form onSubmit={this.submitHandler} className={classes.AuthForm}>
             {this.renderInputs()}
 

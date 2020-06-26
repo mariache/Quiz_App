@@ -1,7 +1,7 @@
 import React from "react";
 import classes from "./MenuToggle.module.css";
 
-export const MenuToggle = (props) => {
+const MenuToggle = (props) => {
   const cls = [classes.MenuToggle, "fa"];
 
   if (props.isOpen) {
