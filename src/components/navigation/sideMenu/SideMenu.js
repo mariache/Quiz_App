@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import classes from "./SideMenu.module.css";
 import { NavLink } from "react-router-dom";
-import Backdrop from "../../UI/Backdrop/Backdrop";
+import BackDrop from "../../UI/BackDrop/BackDrop";
 
 class SideMenu extends Component {
   clickHandler = () => {
@@ -48,7 +48,7 @@ class SideMenu extends Component {
         <nav className={cls.join(" ")}>
           <ul>{this.renderLinks(links)}</ul>
         </nav>
-        {this.props.isOpen ? <Backdrop onClick={this.props.onClose} /> : null}
+        {this.props.isOpen ? <BackDrop onClick={this.props.onClose} /> : null}
       </>
     );
   }
