@@ -1,45 +1,34 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import classes from "./Layout.module.css";
 import MenuToggle from "../../components/Navigation/MenuToggle/MenuToggle";
 import SideMenu from "../../components/Navigation/SideMenu/SideMenu";
 import { connect } from "react-redux";
 
-class Layout extends Component {
-  state = {
-    menu: false,
+const Layout = (props) => {
+  const [menu, setMenu] = useState(false);
+
+  const toggleMenuHandler = () => {
+    setMenu(!menu);
   };
 
-  toggleMenuHandler = () => {
-    this.setState({
-      menu: !this.state.menu,
-    });
+  const menuCloseHandler = () => {
+    setMenu(false);
   };
 
-  menuCloseHandler = () => {
-    this.setState({
-      menu: false,
-    });
-  };
+  return (
+    <div className={classes.Layout}>
+      <SideMenu
+        isOpen={menu}
+        onClose={menuCloseHandler}
+        isAuthenticated={props.isAuthenticated}
+      />
 
-  render() {
-    return (
-      <div className={classes.Layout}>
-        <SideMenu
-          isOpen={this.state.menu}
-          onClose={this.menuCloseHandler}
-          isAuthenticated={this.props.isAuthenticated}
-        />
+      <MenuToggle onToggle={toggleMenuHandler} isOpen={menu} />
 
-        <MenuToggle
-          onToggle={this.toggleMenuHandler}
-          isOpen={this.state.menu}
-        />
-
-        <main>{this.props.children}</main>
-      </div>
-    );
-  }
-}
+      <main>{props.children}</main>
+    </div>
+  );
+};
 
 function mapStateToProps(state) {
   return {
