@@ -1,14 +1,14 @@
-import React, { Component } from "react";
+import React from "react";
 import classes from "./SideMenu.module.css";
 import { NavLink } from "react-router-dom";
 import BackDrop from "../../UI/BackDrop/BackDrop";
 
-class SideMenu extends Component {
-  clickHandler = () => {
-    this.props.onClose();
+const SideMenu = (props) => {
+  const clickHandler = () => {
+    props.onClose();
   };
 
-  renderLinks(links) {
+  const renderLinks = (links) => {
     return links.map((link, index) => {
       return (
         <li key={index}>
@@ -16,42 +16,40 @@ class SideMenu extends Component {
             to={link.to}
             exact={link.exact}
             activeClassName={classes.active}
-            onClick={this.clickHandler}
+            onClick={clickHandler}
           >
             {link.label}
           </NavLink>
         </li>
       );
     });
+  };
+
+  const cls = [classes.SideMenu];
+
+  if (!props.isOpen) {
+    cls.push(classes.close);
   }
 
-  render() {
-    const cls = [classes.SideMenu];
+  const links = [{ to: "/", label: "All quizes", exact: true }];
 
-    if (!this.props.isOpen) {
-      cls.push(classes.close);
-    }
+  console.log("Auth", props.isAuthenticated);
 
-    const links = [{ to: "/", label: "All quizes", exact: true }];
-
-    console.log("Auth", this.props.isAuthenticated);
-
-    if (this.props.isAuthenticated) {
-      links.push({ to: "/quiz-creator", label: "Create a quiz", exact: false });
-      links.push({ to: "/logout", label: "Log out", exact: false });
-    } else {
-      links.push({ to: "/auth", label: "Autorization", exact: false });
-    }
-
-    return (
-      <>
-        <nav className={cls.join(" ")}>
-          <ul>{this.renderLinks(links)}</ul>
-        </nav>
-        {this.props.isOpen ? <BackDrop onClick={this.props.onClose} /> : null}
-      </>
-    );
+  if (props.isAuthenticated) {
+    links.push({ to: "/quiz-creator", label: "Create a quiz", exact: false });
+    links.push({ to: "/logout", label: "Log out", exact: false });
+  } else {
+    links.push({ to: "/auth", label: "Autorization", exact: false });
   }
-}
+
+  return (
+    <>
+      <nav className={cls.join(" ")}>
+        <ul>{renderLinks(links)}</ul>
+      </nav>
+      {props.isOpen ? <BackDrop onClick={props.onClose} /> : null}
+    </>
+  );
+};
 
 export default SideMenu;
